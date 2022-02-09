@@ -1,12 +1,9 @@
-import { MongoClient } from "mongodb"
-import dotenv from "dotenv"
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
 
-dotenv.config()
+const mongoClient = new MongoClient(process.env.MONGO_URI);
+await mongoClient.connect();
+const db = mongoClient.db("vapor-store");
 
-const mongoClient = new MongoClient(process.env.MONGO_URI)
-await mongoClient.connect()
-const db = mongoClient.db('vapor-store')
-const productsCollection = db.collection('products')
-const tokenCollection = db.collection('tokens')
-
-export { productsCollection, tokenCollection }
+export default db;
