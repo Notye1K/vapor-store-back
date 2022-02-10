@@ -1,4 +1,4 @@
-import { tokenCollection } from '../db.js'
+import { tokensCollection } from '../db.js'
 
 export default async function validToken(req, res, next) {
     const token = req.headers.authorization?.replace('Bearer ', '')
@@ -6,7 +6,7 @@ export default async function validToken(req, res, next) {
         return res.status(401).send('Missing token')
     }
 
-    const tokenId = await tokenCollection.findOne({ token })
+    const tokenId = await tokensCollection.findOne({ token })
     if (!tokenId) {
         return res.status(401).send('Invalid token')
     }
