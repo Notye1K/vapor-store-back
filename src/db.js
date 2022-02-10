@@ -3,9 +3,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const mongoClient = new MongoClient(process.env.MONGO_URI);
-await mongoClient.connect();
-const db = mongoClient.db("vapor-store");
-const userCollection = db.collection("users")
-const tokensCollection = db.collection("tokens")
 
-export { userCollection, tokensCollection} 
+let userCollection, tokensCollection;
+mongoClient.connect().then(() => {
+  const db = mongoClient.db("vapor-store");
+  userCollection = db.collection("users")
+  tokensCollection = db.collection("tokens")
+});
+
+export { userCollection, tokensCollection } 

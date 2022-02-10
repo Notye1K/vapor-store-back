@@ -2,7 +2,7 @@
   "name": "projeto_14_vapor-store_back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
     "start": "node src/app.js",

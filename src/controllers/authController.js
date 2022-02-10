@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt"
 import { v4 as tokenGenerator } from "uuid"
-import { userCollection, tokensCollection} from '../db.js';
+import { userCollection, tokensCollection } from '../db.js';
 
 export async function login(req, res) {
     try {
-        const { email, password } = req.body;
-        const user = await userCollection.findOne({ email })
+        const { name, password } = req.body;
+        const user = await userCollection.findOne({ name })
 
         if (!user || !bcrypt.compareSync(password, user.password)) return res.status(401).send("Usuário ou senha inválidos")
 
@@ -30,7 +30,7 @@ export async function signUp(req, res) {
 
         const passwordHash = bcrypt.hashSync(user.password, 10)
 
-        await userCollection.insertOne({ ...user, password: passwordHash, entrys: [] })
+        await userCollection.insertOne({ ...user, password: passwordHash })
 
         res.sendStatus(201)
 
