@@ -3,15 +3,15 @@ import dayjs from 'dayjs'
 
 export async function checkout(req, res) {
     try {
-        const productsId = req.body.products.map(async v => {
-            let productId = await productsCollection.findOne({ name: v })
+        const productsId = await Promise.all(req.body.productsId?.map(async (v) => {
+            const productId = await productsCollection.findOne({ name: v })
             if(!productId){
                 return 'Invalid productId'
             }
             return productId._id
-        })
+        }))
 
-        if (productsId.includes('Invalid productId')) {
+        if (!productsId || productsId.includes('Invalid productId')) {
             return res.status(401).send('Invalid productId')
         }
 
