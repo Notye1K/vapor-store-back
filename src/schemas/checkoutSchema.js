@@ -1,7 +1,7 @@
 import joi from 'joi'
 
 const checkoutSchema = joi.object({
-    productsId: joi.array().required(),
+    products: joi.array().required(),
     infos: joi.object({
         name: joi.string().required(),
         cpf: joi.number().required(),

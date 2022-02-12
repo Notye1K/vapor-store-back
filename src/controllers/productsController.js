@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 
 export async function checkout(req, res) {
     try {
-        const productsId = await Promise.all(req.body.productsId?.map(async (v) => {
+        const productsId = await Promise.all(req.body.products?.map(async (v) => {
             const productId = await productsCollection.findOne({ name: v })
             if(!productId){
                 return 'Invalid productId'
