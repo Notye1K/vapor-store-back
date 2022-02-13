@@ -1,12 +1,27 @@
 import { productsCollection } from '../db.js'
 
 export async function getGames(req, res) {
-
   try {
     const games = await productsCollection.find({}).toArray()
 
-    console.log(games)
     res.status(200).send(games)
+
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+}
+
+export async function getSingleGame(req, res) {
+  const { gameName } = req.params
+
+  try {
+    const game = await productsCollection.findOne({ name: gameName })
+
+    if (!game) {
+      return res.status(404).send("Jogo não encontrado")
+    }
+
+    res.status(200).send(game)
 
   } catch (error) {
     res.status(500).send(error.message)
@@ -36,6 +51,7 @@ export async function addGame(req, res) {
     res.status(500).send(error.message)
   }
 }
+
 
 // const games = [
 //   {
