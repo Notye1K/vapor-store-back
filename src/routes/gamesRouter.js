@@ -6,7 +6,7 @@ import gameSchema from '../schemas/gameSchema.js'
 
 const gamesRouter = Router();
 
-gamesRouter.get('/games', tokenValidation, getGames)
+gamesRouter.get('/games', getGames)
 gamesRouter.get('/games/:gameName', tokenValidation, getSingleGame)
-gamesRouter.post('/games', schemaValidation(gameSchema), addGame)
+gamesRouter.post('/games', schemaValidation(gameSchema), tokenValidation, addGame)
 export default gamesRouter;
